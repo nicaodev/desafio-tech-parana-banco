@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  registroclientes.api:
+    image: ${DOCKER_REGISTRY-}registroclientesapi
+    build:
+      context: .
+      dockerfile: Dockerfile
