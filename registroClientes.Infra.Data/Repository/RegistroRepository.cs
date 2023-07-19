@@ -14,15 +14,18 @@ public class RegistroRepository : IRegistroRepository
         _context = context;
     }
 
-    public async Task<Cliente> AtualizarEmailAsync(string email)
+    public async Task<Cliente> AtualizarEmailAsync(Cliente cliente)
     {
-        Cliente cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.Email == email);
+        //Cliente cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.Email == email);
 
-        if (cliente is not null)
-        {
-            cliente.Email = email;
-            await _context.SaveChangesAsync();
-        }
+        //if (cliente is not null)
+        //{
+        //    cliente.Email = email;
+        //    await _context.SaveChangesAsync();
+        //}
+
+        _context.Update(cliente);
+        await _context.SaveChangesAsync();
         return cliente;
     }
 
@@ -39,6 +42,7 @@ public class RegistroRepository : IRegistroRepository
                 cliente.Telefones.ForEach(t =>
                 {
                     existeContato.DDD_Numero = t.DDD_Numero;
+                    existeContato.Tipo = t.Tipo;
                 });
                 await _context.SaveChangesAsync();
             }

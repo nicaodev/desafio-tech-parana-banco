@@ -1,18 +1,19 @@
-﻿using registroClientes.Domain.Model;
+﻿using registroClientes.Application.Dtos;
+using registroClientes.Domain.Model;
 
 namespace registroClientes.Application.Interfaces;
 
 public interface IRegistroService
 {
-    Task<Cliente> BuscarPorNumeroContato(string numeroContato);
+    Task<ClienteDto> BuscarPorNumeroContato(string numeroContato);
 
-    Task CadastrarCliente(Cliente cliente);
-    Task<IEnumerable<Cliente>> BuscarTodosClientes();
+    Task CadastrarCliente(ClienteDto cliente);
+    Task<IEnumerable<ClienteDto>> BuscarTodosClientes();
 
 
-    Task AtualizarEmail(string email);
+    Task AtualizarEmail(ClienteDto cliente);
 
-    Task AtualizarNumeroContato(Cliente cliente);
+    Task AtualizarNumeroContato(ClienteDto cliente);
 
-    Task DeletarPorEmail(string email);
+    Task<bool> DeletarPorEmail(string email);
 }

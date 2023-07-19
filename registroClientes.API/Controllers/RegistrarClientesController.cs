@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using registroClientes.Application.Dtos;
 using registroClientes.Application.Interfaces;
-using registroClientes.Domain.Model;
 
 namespace registroClientes.API.Controllers;
 
@@ -16,7 +16,7 @@ public class RegistrarClientesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<Cliente>> BuscarClientes()
+    public async Task<ActionResult<ClienteDto>> BuscarClientes()
     {
         var retorno = await _registroService.BuscarTodosClientes();
 
@@ -26,7 +26,7 @@ public class RegistrarClientesController : ControllerBase
     }
 
     [HttpGet("{numeroContato}", Name = "BuscarPorContato")]
-    public async Task<ActionResult<Cliente>> Buscar(string numeroContato)
+    public async Task<ActionResult<ClienteDto>> Buscar(string numeroContato)
     {
         var retorno = await _registroService.BuscarPorNumeroContato(numeroContato);
         if (retorno is null) return NotFound("Não há Registros.");
@@ -35,12 +35,41 @@ public class RegistrarClientesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Cliente>> CadastrarCliente([FromBody] Cliente cliente)
+    public async Task<ActionResult> CadastrarCliente([FromBody] ClienteDto clienteDto)
     {
-        if (cliente is null) return BadRequest("Dados nulos.");
+        if (clienteDto is null) return BadRequest("Dados nulos.");
 
-        await _registroService.CadastrarCliente(cliente);
+        await _registroService.CadastrarCliente(clienteDto);
 
-        return Ok(cliente);
+        return Ok(clienteDto);
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> AtualizarEmailCliente(int id, [FromBody] ClienteDto clienteDto)
+    {
+        if (id != clienteDto.Id || clienteDto is null) return BadRequest();
+
+        await _registroService.AtualizarEmail(clienteDto);
+
+        return Ok(clienteDto);
+    }
+
+    [HttpPut("{id:int}", Name = "AtualizarContatosCliente")]
+    public async Task<ActionResult> AtualizarContatosCliente(int id, [FromBody] ClienteDto clienteDto)
+    {
+        if (id != clienteDto.Id || clienteDto is null) return BadRequest();
+
+        await _registroService.AtualizarNumeroContato(clienteDto);
+
+        return Ok(clienteDto);
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult<ClienteDto>> Delete(string email)
+    {
+        var retorno = await _registroService.DeletarPorEmail(email);
+
+        if (!retorno) return BadRequest();
+        return Ok("Cliente deletado da base de dados.");
     }
 }

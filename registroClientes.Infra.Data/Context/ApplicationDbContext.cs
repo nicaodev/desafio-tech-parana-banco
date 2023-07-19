@@ -14,12 +14,10 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Cliente>().HasKey(c => c.Id);
-        modelBuilder.Entity<Telefone>().HasKey(t => t.Id);
-
-        modelBuilder.Entity<Cliente>()
-            .HasMany(c => c.Telefones)  // Um cliente tem muitos telefones
-            .WithOne(p => p.Cliente)  // Um telefone pertence a um único cliente
-            .HasForeignKey(p => p.ClienteId); // Chave estrangeira para a relação
+        modelBuilder.Entity<Telefone>()
+            .HasOne(_ => _.Cliente)  // Um telefone pertence a um único cliente
+            .WithMany(p => p.Telefones) // Um cliente tem muitos telefones
+            .HasForeignKey(p => p.ClienteId) // Chave estrangeira para a relação
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

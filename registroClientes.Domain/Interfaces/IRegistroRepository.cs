@@ -10,7 +10,7 @@ public interface IRegistroRepository
 
     Task<Cliente> BuscarPorNumeroContatoAsync(string numeroContato);
 
-    Task<Cliente> AtualizarEmailAsync(string email);
+    Task<Cliente> AtualizarEmailAsync(Cliente cliente);
 
     Task<Cliente> AtualizarNumeroContatoAsync(Cliente cliente);
 

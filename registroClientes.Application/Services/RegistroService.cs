@@ -1,4 +1,6 @@
-﻿using registroClientes.Application.Interfaces;
+﻿using AutoMapper;
+using registroClientes.Application.Dtos;
+using registroClientes.Application.Interfaces;
 using registroClientes.Domain.Interfaces;
 using registroClientes.Domain.Model;
 
@@ -7,42 +9,51 @@ namespace registroClientes.Application.Services;
 public class RegistroService : IRegistroService
 {
     public readonly IRegistroRepository _registroRepository;
+    public readonly IMapper _mapper;
 
-    public RegistroService(IRegistroRepository registroRepository)
+    public RegistroService(IRegistroRepository registroRepository, IMapper mapper)
     {
         _registroRepository = registroRepository;
+        _mapper = mapper;
     }
 
-
-
-
-    public async Task AtualizarEmail(string email)
+    public async Task AtualizarEmail(ClienteDto cliente)
     {
-        throw new NotImplementedException();
+        var modelCliente = _mapper.Map<Cliente>(cliente);
+
+        await _registroRepository.AtualizarEmailAsync(modelCliente);
     }
 
-    public async Task AtualizarNumeroContato(Cliente cliente)
+    public async Task AtualizarNumeroContato(ClienteDto cliente)
     {
-        throw new NotImplementedException();
+        var modelCliente = _mapper.Map<Cliente>(cliente);
+
+        await _registroRepository.AtualizarNumeroContatoAsync(modelCliente);
     }
 
-    public async Task<Cliente> BuscarPorNumeroContato(string numeroContato)
+    public async Task<ClienteDto> BuscarPorNumeroContato(string numeroContato)
     {
-        return await _registroRepository.BuscarPorNumeroContatoAsync(numeroContato);
+        var retorno = await _registroRepository.BuscarPorNumeroContatoAsync(numeroContato);
+
+        return _mapper.Map<ClienteDto>(retorno);
     }
 
-    public async Task<IEnumerable<Cliente>> BuscarTodosClientes()
+    public async Task<IEnumerable<ClienteDto>> BuscarTodosClientes()
     {
-       return await _registroRepository.BuscarTodosClientesAsync();
+        var retorno = await _registroRepository.BuscarTodosClientesAsync();
+
+        return _mapper.Map<IEnumerable<ClienteDto>>(retorno);
     }
 
-    public async Task CadastrarCliente(Cliente cliente)
+    public async Task CadastrarCliente(ClienteDto cliente)
     {
-         await _registroRepository.CadastrarClienteAsync(cliente);
+        var clienteMap = _mapper.Map<Cliente>(cliente);
+
+        await _registroRepository.CadastrarClienteAsync(clienteMap);
     }
 
-    public async Task DeletarPorEmail(string email)
+    public async Task<bool> DeletarPorEmail(string email)
     {
-        throw new NotImplementedException();
+        return await _registroRepository.DeletarPorEmailAsync(email);
     }
 }

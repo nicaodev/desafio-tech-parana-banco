@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using registroClientes.Application.Interfaces;
+using registroClientes.Application.MappingAutoMapper;
 using registroClientes.Application.Services;
 using registroClientes.Domain.Interfaces;
 using registroClientes.Infra.Data.Context;
@@ -18,6 +19,9 @@ public static class DependencyInjection
 
         services.AddScoped<IRegistroRepository, RegistroRepository>();
         services.AddScoped<IRegistroService, RegistroService>();
+
+
+        services.AddAutoMapper(typeof(DomainToDto));
 
         return services;
     }
