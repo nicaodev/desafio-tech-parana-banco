@@ -16,14 +16,6 @@ public class RegistroRepository : IRegistroRepository
 
     public async Task<Cliente> AtualizarEmailAsync(Cliente cliente)
     {
-        //Cliente cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.Email == email);
-
-        //if (cliente is not null)
-        //{
-        //    cliente.Email = email;
-        //    await _context.SaveChangesAsync();
-        //}
-
         _context.Update(cliente);
         await _context.SaveChangesAsync();
         return cliente;
