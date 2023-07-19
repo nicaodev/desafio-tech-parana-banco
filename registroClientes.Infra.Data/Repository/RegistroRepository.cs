@@ -18,11 +18,11 @@ public class RegistroRepository : IRegistroRepository
     {
         Cliente cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.Email == email);
 
-        if (cliente is null)
-            return new Cliente();
-
-        cliente.Email = email;
-        await _context.SaveChangesAsync();
+        if (cliente is not null)
+        {
+            cliente.Email = email;
+            await _context.SaveChangesAsync();
+        }
         return cliente;
     }
 
@@ -30,19 +30,19 @@ public class RegistroRepository : IRegistroRepository
     {
         Cliente existeCliente = await _context.Clientes.Include(t => t.Telefones).FirstOrDefaultAsync(c => c.Id == cliente.Id);
 
-        if (existeCliente is null) return new Cliente();
-
-        var existeContato = existeCliente.Telefones.FirstOrDefault(t => t.Id == cliente.Id);
-
-        if (existeContato is not null)
+        if (existeCliente is not null)
         {
-            cliente.Telefones.ForEach(t =>
-            {
-                existeContato.DDD_Numero = t.DDD_Numero;
-            });
-        }
+            var existeContato = existeCliente.Telefones.FirstOrDefault(t => t.Id == cliente.Id);
 
-        await _context.SaveChangesAsync();
+            if (existeContato is not null)
+            {
+                cliente.Telefones.ForEach(t =>
+                {
+                    existeContato.DDD_Numero = t.DDD_Numero;
+                });
+                await _context.SaveChangesAsync();
+            }
+        }
         return existeCliente;
     }
 
@@ -50,14 +50,14 @@ public class RegistroRepository : IRegistroRepository
     {
         Cliente cliente = await _context.Clientes
             .Include(c => c.Telefones)
-            .FirstOrDefaultAsync(c => c.Telefones.Any(p => p.DDD_Numero == numeroContato)) ?? new Cliente();
+            .FirstOrDefaultAsync(c => c.Telefones.Any(p => p.DDD_Numero == numeroContato));
 
         return cliente;
     }
 
     public async Task<IEnumerable<Cliente>> BuscarTodosClientesAsync()
     {
-        return await _context.Clientes.AsNoTracking().ToListAsync();
+        return await _context.Clientes.Include(c => c.Telefones).AsNoTracking().ToListAsync();
     }
 
     public async Task<Cliente> CadastrarClienteAsync(Cliente cliente)
