@@ -47,9 +47,9 @@ public class RegistroService : IRegistroService
 
     public async Task CadastrarCliente(ClienteDto cliente)
     {
-        var clienteMap = _mapper.Map<Cliente>(cliente);
+        var modelCliente = _mapper.Map<Cliente>(cliente);
 
-        await _registroRepository.CadastrarClienteAsync(clienteMap);
+        await _registroRepository.CadastrarClienteAsync(modelCliente);
     }
 
     public async Task<bool> DeletarPorEmail(string email)

@@ -23,7 +23,7 @@ public class RegistroRepository : IRegistroRepository
 
     public async Task<Cliente> AtualizarNumeroContatoAsync(Cliente cliente)
     {
-        Cliente existeCliente = await _context.Clientes.Include(t => t.Telefones).FirstOrDefaultAsync(c => c.Id == cliente.Id);
+        Cliente existeCliente = await _context.Clientes.AsNoTracking().Include(t => t.Telefones).FirstOrDefaultAsync(c => c.Id == cliente.Id);
 
         if (existeCliente is not null)
         {
@@ -44,7 +44,7 @@ public class RegistroRepository : IRegistroRepository
 
     public async Task<Cliente> BuscarPorNumeroContatoAsync(string numeroContato)
     {
-        Cliente cliente = await _context.Clientes
+        Cliente cliente = await _context.Clientes.AsNoTracking()
             .Include(c => c.Telefones)
             .FirstOrDefaultAsync(c => c.Telefones.Any(p => p.DDD_Numero == numeroContato));
 
@@ -53,7 +53,7 @@ public class RegistroRepository : IRegistroRepository
 
     public async Task<IEnumerable<Cliente>> BuscarTodosClientesAsync()
     {
-        return await _context.Clientes.Include(c => c.Telefones).AsNoTracking().ToListAsync();
+        return await _context.Clientes.AsNoTracking().Include(c => c.Telefones).ToListAsync();
     }
 
     public async Task<Cliente> CadastrarClienteAsync(Cliente cliente)
