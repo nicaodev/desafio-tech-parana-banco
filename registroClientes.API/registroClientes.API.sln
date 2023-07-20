@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.API", "registroClientes.API.csproj", "{D7039A05-B7BD-41D5-B441-65A0A4382407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registroClientes.API", "registroClientes.API.csproj", "{D7039A05-B7BD-41D5-B441-65A0A4382407}"
 	ProjectSection(ProjectDependencies) = postProject
 		{03DF21E5-34B4-4D38-BAC4-30712EBA485E} = {03DF21E5-34B4-4D38-BAC4-30712EBA485E}
 		{8C82769C-5F03-4725-8CFB-B8FAC050EB55} = {8C82769C-5F03-4725-8CFB-B8FAC050EB55}
@@ -12,28 +12,30 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.API", "reg
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8863F216-F2EC-468D-B11E-2D19575A459E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.Application", "..\registroClientes.Application\registroClientes.Application.csproj", "{8C82769C-5F03-4725-8CFB-B8FAC050EB55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registroClientes.Application", "..\registroClientes.Application\registroClientes.Application.csproj", "{8C82769C-5F03-4725-8CFB-B8FAC050EB55}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC} = {8DF7560D-A131-4B04-B55A-57FA3C30A6FC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.Domain", "..\registroClientes.Domain\registroClientes.Domain.csproj", "{8DF7560D-A131-4B04-B55A-57FA3C30A6FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registroClientes.Domain", "..\registroClientes.Domain\registroClientes.Domain.csproj", "{8DF7560D-A131-4B04-B55A-57FA3C30A6FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.Domain.Tests", "..\registroClientes.Domain.Tests\registroClientes.Domain.Tests.csproj", "{5E184142-72A2-4320-934F-E5BB9CA5B25B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registroClientes.Infra.Data", "..\registroClientes.Infra.Data\registroClientes.Infra.Data.csproj", "{BC7CEDA3-BFCA-438B-A91D-4BD1779158E8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC} = {8DF7560D-A131-4B04-B55A-57FA3C30A6FC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.Infra.Data", "..\registroClientes.Infra.Data\registroClientes.Infra.Data.csproj", "{BC7CEDA3-BFCA-438B-A91D-4BD1779158E8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC} = {8DF7560D-A131-4B04-B55A-57FA3C30A6FC}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.Infra.IoC", "..\registroClientes.Infra.IoC\registroClientes.Infra.IoC.csproj", "{03DF21E5-34B4-4D38-BAC4-30712EBA485E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registroClientes.Infra.IoC", "..\registroClientes.Infra.IoC\registroClientes.Infra.IoC.csproj", "{03DF21E5-34B4-4D38-BAC4-30712EBA485E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8C82769C-5F03-4725-8CFB-B8FAC050EB55} = {8C82769C-5F03-4725-8CFB-B8FAC050EB55}
 		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC} = {8DF7560D-A131-4B04-B55A-57FA3C30A6FC}
 		{BC7CEDA3-BFCA-438B-A91D-4BD1779158E8} = {BC7CEDA3-BFCA-438B-A91D-4BD1779158E8}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "registroClientes.Tests", "..\registroClientes.Tests\registroClientes.Tests.csproj", "{5C4B7187-7DA1-46D1-BBAA-5D9C937BAD5B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC} = {8DF7560D-A131-4B04-B55A-57FA3C30A6FC}
+		{BC7CEDA3-BFCA-438B-A91D-4BD1779158E8} = {BC7CEDA3-BFCA-438B-A91D-4BD1779158E8}
+		{D7039A05-B7BD-41D5-B441-65A0A4382407} = {D7039A05-B7BD-41D5-B441-65A0A4382407}
 	EndProjectSection
 EndProject
 Global
@@ -58,10 +60,6 @@ Global
 		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DF7560D-A131-4B04-B55A-57FA3C30A6FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E184142-72A2-4320-934F-E5BB9CA5B25B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E184142-72A2-4320-934F-E5BB9CA5B25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E184142-72A2-4320-934F-E5BB9CA5B25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E184142-72A2-4320-934F-E5BB9CA5B25B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC7CEDA3-BFCA-438B-A91D-4BD1779158E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC7CEDA3-BFCA-438B-A91D-4BD1779158E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC7CEDA3-BFCA-438B-A91D-4BD1779158E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -70,6 +68,10 @@ Global
 		{03DF21E5-34B4-4D38-BAC4-30712EBA485E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03DF21E5-34B4-4D38-BAC4-30712EBA485E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03DF21E5-34B4-4D38-BAC4-30712EBA485E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C4B7187-7DA1-46D1-BBAA-5D9C937BAD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C4B7187-7DA1-46D1-BBAA-5D9C937BAD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C4B7187-7DA1-46D1-BBAA-5D9C937BAD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C4B7187-7DA1-46D1-BBAA-5D9C937BAD5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,7 +44,7 @@ public class RegistroRepository : IRegistroRepository
 
     public async Task<Cliente> BuscarPorNumeroContatoAsync(string numeroContato)
     {
-        Cliente cliente = await _context.Clientes.AsNoTracking()
+        Cliente cliente = await _context.Clientes
             .Include(c => c.Telefones)
             .FirstOrDefaultAsync(c => c.Telefones.Any(p => p.DDD_Numero == numeroContato));
 
