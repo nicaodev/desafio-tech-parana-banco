@@ -56,6 +56,41 @@ public class RegistroClientesControllerTestes
         }
 
         [Fact]
+        public async Task AtualizarNumeroContato_ShouldCallAtualizarNumeroContatoAsync()
+        {
+            // Arrange
+            var cliente = new Cliente
+            {
+                Id = 1,
+                NomeCompleto = "João da Silva",
+                Email = "joao@example.com",
+                Telefones = new List<Telefone>
+                {
+                        new Telefone { Id = 1, DDD_Numero = "123456789",   Tipo = "celular" },
+                        new Telefone { Id = 2, DDD_Numero = "123456788", Tipo = "fixo" }
+                }
+            };
+            var clienteDto = new ClienteDto
+            {
+                Id = 1,
+                NomeCompleto = "João da Silva",
+                Email = "joao@example.com",
+                Telefones = new List<TelefoneDto>
+                {
+                        new TelefoneDto { Id = 1, DDD_Numero = "123456789",   Tipo = "celular" },
+                        new TelefoneDto{ Id = 2, DDD_Numero = "123456788", Tipo = "fixo" }
+                }
+            };
+
+            // Act
+            await _registroService.AtualizarNumeroContato(clienteDto);
+
+            // Assert
+            _registroRepositoryMock.Verify(repo => repo.AtualizarNumeroContatoAsync(It.IsAny<Cliente>()), Times.Once);
+        }
+
+
+        [Fact]
         public async Task BuscarPorNumeroContato_ShouldReturnClienteByNumeroContato()
         {
             // Arrange
@@ -104,6 +139,34 @@ public class RegistroClientesControllerTestes
 
             // Assert
             _registroRepositoryMock.Verify(repo => repo.CadastrarClienteAsync(It.IsAny<Cliente>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task AtualizarEmail_ShouldCallAtualizarEmailAsync()
+        {
+            // Arrange
+            var clienteDto = new ClienteDto { NomeCompleto = "Fulano", Email = "fulano@example.com" };
+            var clienteModel = _mapper.Map<Cliente>(clienteDto);
+
+            // Act
+            await _registroService.AtualizarEmail(clienteDto);
+
+            // Assert
+            _registroRepositoryMock.Verify(repo => repo.AtualizarEmailAsync(It.IsAny<Cliente>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task DeletarPorEmail_ShouldReturnTrueWhenRepositoryReturnsTrue()
+        {
+            // Arrange
+            string email = "fulano@example.com";
+            _registroRepositoryMock.Setup(repo => repo.DeletarPorEmailAsync(email)).ReturnsAsync(true);
+
+            // Act
+            bool result = await _registroService.DeletarPorEmail(email);
+
+            // Assert
+            Assert.True(result);
         }
     }
 }
