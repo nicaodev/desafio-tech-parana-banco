@@ -52,7 +52,7 @@ public class RegistroClientesControllerTestes
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(2, ((List<Cliente>)result).Count);
+            Assert.Equal(2, ((List<ClienteDto>)result).Count);
         }
 
         [Fact]
@@ -88,7 +88,6 @@ public class RegistroClientesControllerTestes
             // Assert
             _registroRepositoryMock.Verify(repo => repo.AtualizarNumeroContatoAsync(It.IsAny<Cliente>()), Times.Once);
         }
-
 
         [Fact]
         public async Task BuscarPorNumeroContato_ShouldReturnClienteByNumeroContato()

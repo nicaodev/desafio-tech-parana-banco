@@ -16,4 +16,3 @@ public interface IRegistroRepository
 
     Task<bool> DeletarPorEmailAsync(string email);
 }
-
