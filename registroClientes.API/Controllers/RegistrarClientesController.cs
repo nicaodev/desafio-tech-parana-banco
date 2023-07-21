@@ -6,6 +6,7 @@ namespace registroClientes.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Produces("application/json")]
 public class RegistrarClientesController : ControllerBase
 {
     private readonly IRegistroService _registroService;
@@ -15,6 +16,9 @@ public class RegistrarClientesController : ControllerBase
         _registroService = registroService;
     }
 
+    /// <summary>
+    /// Consultar todos os clientes com seus respectivos e-mails e telefones.
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<ClienteDto>> BuscarClientes()
     {
@@ -25,6 +29,11 @@ public class RegistrarClientesController : ControllerBase
         return Ok(retorno);
     }
 
+    /// <summary>
+    /// Consulta de um cliente através do DDD e número.
+    /// </summary>
+    /// <param name="numeroContato"></param>
+    /// <returns></returns>
     [HttpGet("{numeroContato}", Name = "BuscarPorContato")]
     public async Task<ActionResult<ClienteDto>> Buscar(string numeroContato)
     {
@@ -33,6 +42,13 @@ public class RegistrarClientesController : ControllerBase
 
         return Ok(retorno);
     }
+
+    /// <summary>
+    /// Cadastrar o cliente informando o nome completo, e-mail e uma lista de telefones informando o DDD, número e o tipo [fixo ou celular].
+    /// </summary>
+    /// <param name="clienteDto"></param>
+    /// <returns></returns>
+    ///
 
     [HttpPost]
     public async Task<ActionResult> CadastrarCliente([FromBody] ClienteDto clienteDto)
@@ -44,6 +60,12 @@ public class RegistrarClientesController : ControllerBase
         return Ok(clienteDto);
     }
 
+    /// <summary>
+    /// Atualizar o e-mail do cliente cadastrado.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="clienteDto"></param>
+    /// <returns></returns>
     [HttpPut]
     public async Task<ActionResult> AtualizarEmailCliente(int id, [FromBody] ClienteDto clienteDto)
     {
@@ -54,6 +76,12 @@ public class RegistrarClientesController : ControllerBase
         return Ok(clienteDto);
     }
 
+    /// <summary>
+    /// Atualizar contato de telefone do cliente cadastrado.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="clienteDto"></param>
+    /// <returns></returns>
     [HttpPut("{id:int}", Name = "AtualizarContatosCliente")]
     public async Task<ActionResult> AtualizarContatosCliente(int id, [FromBody] ClienteDto clienteDto)
     {
@@ -64,6 +92,11 @@ public class RegistrarClientesController : ControllerBase
         return Ok(clienteDto);
     }
 
+    /// <summary>
+    /// Deletar cliente via e-mail.
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
     [HttpDelete]
     public async Task<ActionResult<ClienteDto>> Delete(string email)
     {
