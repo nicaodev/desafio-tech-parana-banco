@@ -29,15 +29,13 @@ public class RegistroRepository : IRegistroRepository
         {
             var existeContato = existeCliente.Telefones.FirstOrDefault(t => t.Id == cliente.Id);
 
-            if (existeContato is not null)
+            cliente.Telefones.ForEach(t =>
             {
-                cliente.Telefones.ForEach(t =>
-                {
-                    existeContato.DDD_Numero = t.DDD_Numero;
-                    existeContato.Tipo = t.Tipo;
-                });
-                await _context.SaveChangesAsync();
-            }
+                existeContato.DDD_Numero = t.DDD_Numero;
+                existeContato.Tipo = t.Tipo;
+            });
+            _context.Update(existeCliente);
+            await _context.SaveChangesAsync();
         }
         return existeCliente;
     }
